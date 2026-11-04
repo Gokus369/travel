@@ -19,26 +19,29 @@ type Segment =
   | { kind: "tide"; from: number; to: number; length: number }
   | { kind: "ebb"; frame: number; length: number };
 
+/** Transitions stay short: scenes get the scroll, and the joins between them pass quickly. */
 const segments: Segment[] = [
-  { kind: "hold", frame: 1, length: 6 },
-  { kind: "portal", from: 35, to: 44, length: 13 },
+  { kind: "hold", frame: 1, length: 5 },
+  { kind: "portal", from: 35, to: 44, length: 8 },
   { kind: "play", from: 44, to: 55, length: 12 },
-  { kind: "play", from: 55, to: 84, length: 20 },
-  { kind: "tide", from: 84, to: 85, length: 6 },
+  { kind: "play", from: 55, to: 66, length: 3 },
+  { kind: "play", from: 66, to: 84, length: 14 },
+  { kind: "tide", from: 84, to: 85, length: 3 },
   { kind: "play", from: 85, to: 120, length: 16 },
-  { kind: "tide", from: 120, to: 121, length: 6 },
+  { kind: "tide", from: 120, to: 121, length: 3 },
   { kind: "play", from: 121, to: 177, length: 24 },
-  { kind: "play", from: 177, to: 216, length: 20 },
-  { kind: "tide", from: 216, to: 217, length: 6 },
+  { kind: "play", from: 177, to: 183, length: 2 },
+  { kind: "play", from: 183, to: 216, length: 14 },
+  { kind: "tide", from: 216, to: 217, length: 3 },
   { kind: "play", from: 217, to: 240, length: 12 },
   { kind: "hold", frame: 240, length: 12 },
-  { kind: "ebb", frame: 240, length: 8 },
+  { kind: "ebb", frame: 240, length: 4 },
 ];
 
 export const DURATION = segments.reduce((sum, segment) => sum + segment.length, 0);
 
 /** Frames that must exist whatever the stride, because a segment starts or ends on them. */
-const keyFrames = new Set([1, 35, 44, 55, 84, 85, 120, 121, 177, 216, 217, 240]);
+const keyFrames = new Set([1, 35, 44, 55, 66, 84, 85, 120, 121, 177, 183, 216, 217, 240]);
 
 export function filmFrames(stride = 1) {
   const frames = [1];
@@ -118,15 +121,15 @@ function sample(keys: Keys, t: number) {
 
 /** A slow push in on each scene, easing back while the tide covers the join. */
 const pushKeys: Keys = [
-  [19, 1], [51, 1.07], [57, 1],
-  [73, 1.07], [79, 1],
-  [103, 1.06], [106, 1], [123, 1.06], [129, 1],
-  [141, 1.05],
+  [13, 1], [42, 1.07], [45, 1],
+  [61, 1.07], [64, 1],
+  [88, 1.06], [90, 1], [104, 1.06], [107, 1],
+  [119, 1.05],
 ];
 
 /** Portrait screens see about a quarter of the frame, so the camera pans to each subject. */
 const portraitFocusKeys: Keys = [
-  [19, 0.2], [31, 0.3], [40, 0.5], [73, 0.52], [79, 0.46], [103, 0.5], [107, 0.42], [123, 0.42], [129, 0.63],
+  [13, 0.2], [25, 0.3], [29, 0.5], [61, 0.52], [64, 0.46], [88, 0.5], [90, 0.42], [104, 0.42], [107, 0.63],
 ];
 
 export function cameraAt(t: number, aspect: number, shot: Shot, opening: Lens): Camera {
@@ -177,9 +180,9 @@ export const chapters: Chapter[] = [
     place: "Varkala, Kerala",
     rail: "Varkala",
     title: "It begins where the land meets the sea.",
-    fadeIn: [15.5, 20],
-    fadeOut: [28.5, 31],
-    stop: 24,
+    fadeIn: [11, 14.5],
+    fadeOut: [22.5, 25],
+    stop: 18,
     layout: "bottom-left",
   },
   {
@@ -187,9 +190,9 @@ export const chapters: Chapter[] = [
     place: "Agra, Uttar Pradesh",
     rail: "Agra",
     title: "Follow the light north.",
-    fadeIn: [39, 43],
-    fadeOut: [48.5, 51],
-    stop: 45,
+    fadeIn: [28.5, 31.5],
+    fadeOut: [39.5, 42],
+    stop: 35,
     layout: "top-left",
   },
   {
@@ -197,9 +200,9 @@ export const chapters: Chapter[] = [
     place: "Rajasthan",
     rail: "Rajasthan",
     title: "Past forts that outlived their kings.",
-    fadeIn: [58, 62],
-    fadeOut: [70.5, 73],
-    stop: 65,
+    fadeIn: [45, 48],
+    fadeOut: [58.5, 61],
+    stop: 53,
     layout: "bottom-left",
   },
   {
@@ -207,9 +210,9 @@ export const chapters: Chapter[] = [
     place: "All of India",
     rail: "All India",
     title: "14 routes. 6 regions. One country.",
-    fadeIn: [81, 85],
-    fadeOut: [100, 103],
-    stop: 92,
+    fadeIn: [66, 69.5],
+    fadeOut: [85, 88],
+    stop: 77,
     layout: "bottom-right",
   },
   {
@@ -217,9 +220,9 @@ export const chapters: Chapter[] = [
     place: "Alappuzha, Kerala",
     rail: "Alappuzha",
     title: "Then home, to slow water.",
-    fadeIn: [107, 111],
-    fadeOut: [120.5, 123],
-    stop: 114,
+    fadeIn: [90.5, 93.5],
+    fadeOut: [101.5, 104],
+    stop: 97,
     layout: "bottom-left",
   },
   {
@@ -227,9 +230,9 @@ export const chapters: Chapter[] = [
     place: "The shore",
     rail: "Your story",
     title: "Every journey tells a story.",
-    fadeIn: [131, 138],
-    fadeOut: [152, 155],
-    stop: 146,
+    fadeIn: [109, 115],
+    fadeOut: [130, 133],
+    stop: 125,
     layout: "center-top",
   },
 ];

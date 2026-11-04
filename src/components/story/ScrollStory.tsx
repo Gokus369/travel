@@ -83,10 +83,10 @@ export function ScrollStory() {
         node.style.setProperty("--out", fadeOut.toFixed(3));
         node.dataset.live = fadeIn > 0.8 && fadeOut < 0.2 ? "true" : "false";
       });
-      root!.style.setProperty("--opening", (1 - smoothstep(0.4, 5, t)).toFixed(3));
+      root!.style.setProperty("--opening", (1 - smoothstep(0.4, 4, t)).toFixed(3));
       root!.style.setProperty("--progress", Math.min(1, t / chapters[chapters.length - 1].stop).toFixed(4));
-      root!.style.setProperty("--interface", (1 - smoothstep(148, 154, t)).toFixed(3));
-      root!.dataset.tone = t < 13 ? "paper" : "film";
+      root!.style.setProperty("--interface", (1 - smoothstep(128, 133, t)).toFixed(3));
+      root!.dataset.tone = t < 9.5 ? "paper" : "film";
 
       const active = chapters.findLastIndex((chapter) => t >= chapter.fadeIn[0]);
       railStops.forEach((stop, index) => stop.toggleAttribute("data-current", index === active));
@@ -124,7 +124,7 @@ export function ScrollStory() {
         phase: t * 1.1,
         pointer: [pointer.x, pointer.y, pointer.strength],
         ringPhase,
-        film: smoothstep(6, 16, t),
+        film: smoothstep(5, 11, t),
       });
 
       if (!shown && store.isReady(1)) {
@@ -225,7 +225,7 @@ export function ScrollStory() {
       ref={rootRef}
       aria-label="The Wave Story film"
       data-tone="paper"
-      className="story relative -mt-[calc(4.5rem+1px)] h-[850svh] bg-paper [@media(scripting:none)]:mt-0 [@media(scripting:none)]:h-auto"
+      className="story relative -mt-[calc(4.5rem+1px)] h-[730svh] bg-paper [@media(scripting:none)]:mt-0 [@media(scripting:none)]:h-auto"
     >
       <div ref={stageRef} className="sticky top-0 h-svh overflow-hidden">
         <Image

@@ -34,7 +34,7 @@ The scroll film lives in `src/components/story`.
 | --- | --- |
 | Chapter words, timing and rail labels | `chapters` in `timeline.ts` |
 | Pacing, and how much scroll each scene gets | `segments` in `timeline.ts` |
-| Total scroll length | `h-[850svh]` in `ScrollStory.tsx` |
+| Total scroll length | `h-[730svh]` in `ScrollStory.tsx` |
 | The portal, tide and water effects | the shader in `renderer.ts` |
 
 The original film is in `frames/`. The site uses cleaned copies in `public/frames/v1`, made by `node scripts/build-frames.mjs`.
