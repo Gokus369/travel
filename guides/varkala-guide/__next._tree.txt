@@ -1,0 +1,7 @@
+:HL["/travel/_next/static/chunks/10s3umdh3tirb.css","style"]
+:HL["/travel/_next/static/media/0264c3c98799c37c-s.p.0fuf3937kiol3.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/travel/_next/static/media/cb4b92673aedbbad-s.p.0-95eo-012xnf.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+3:[["children",{"s":"__PAGE__","h":160}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"varkala-guide","s":[]},"h":65632,"c":"$Q3"}]]
+1:[["children",{"s":"guides","h":131136,"c":"$Q2"}]]
+0:{"b":"L23mcw2RQLS-E-WVI25eI","t":{"t":{"s":"","h":131088,"c":"$Q1"}}}

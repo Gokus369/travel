@@ -1,0 +1,27 @@
+2:"$Sreact.fragment"
+3:"/travel/_next/static/chunks/3qfy96eoyh-ek.js"
+4:"/travel/_next/static/chunks/2ze0qx14qr9m7.js"
+5:I[39756,["$3","$4"],"default"]
+6:I[37457,["$3","$4"],"default"]
+b:I[22016,["$3","$4"],""]
+c:I[97367,["$3","$4"],"OutletBoundary"]
+d:"$Sreact.suspense"
+10:"ViewportBoundary"
+11:I[97367,["$3","$4"],"$10"]
+12:"MetadataBoundary"
+13:I[97367,["$3","$4"],"$12"]
+14:I[27201,["$3","$4"],"IconMark"]
+8:X
+8:C
+9:X
+a:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$2","c",{"children":[["$","section",null,{"className":"wrap py-24 text-center md:py-32","children":[["$","p",null,{"className":"eyebrow","children":"Page not found"}],["$","h1",null,{"className":"mt-4 text-5xl leading-tight md:text-6xl","children":"This road washed out"}],["$","p",null,{"className":"mx-auto mt-4 max-w-md text-lg text-ink-soft","children":"The page you were after is not here, but there is plenty of India left to see."}],["$","div",null,{"className":"mt-7 flex flex-wrap justify-center gap-3","children":[["$","$Lb",null,{"href":"/packages","className":"btn btn-primary","children":"See tour packages"}],["$","$Lb",null,{"href":"/","className":"btn btn-ghost","children":"Back to home"}]]}]]}],null,["$","$Lc",null,{"children":["$","$d",null,{"name":"Next.MetadataOutlet","children":"$@e"}]}]]}],"p":"$@f","v":null,"s":"$9"}}]]
+1:[["children",{"s":"/_not-found","h":64,"d":{"r":["$","$2","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}]}]]}],"p":"$@7","v":"$8","s":"$9"},"c":"$Qa"}]]
+0:{"t":{"t":{"s":"","h":16,"c":"$Q1"},"h":{"r":["$","$2","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L11",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L13",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$d",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Wave Story | All India Tour Packages from Varkala, Kerala"}],["$","meta","1",{"name":"description","content":"All India tour packages and travel guides, planned from Varkala, Kerala by Wave Story Ventures."}],["$","meta","2",{"property":"og:title","content":"Wave Story | All India Tour Packages from Varkala, Kerala"}],["$","meta","3",{"property":"og:description","content":"All India tour packages and travel guides, planned from Varkala, Kerala by Wave Story Ventures."}],["$","meta","4",{"property":"og:site_name","content":"Wave Story Ventures"}],["$","meta","5",{"property":"og:locale","content":"en_IN"}],["$","meta","6",{"property":"og:image","content":"https://gokus369.github.io/travel/brand/share.png"}],["$","meta","7",{"property":"og:image:width","content":"1200"}],["$","meta","8",{"property":"og:image:height","content":"630"}],["$","meta","9",{"property":"og:image:alt","content":"The Wave Story logo with the tagline Every Journey Tells a Story"}],["$","meta","10",{"property":"og:type","content":"website"}],["$","meta","11",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","12",{"name":"twitter:title","content":"Wave Story | All India Tour Packages from Varkala, Kerala"}],["$","meta","13",{"name":"twitter:description","content":"All India tour packages and travel guides, planned from Varkala, Kerala by Wave Story Ventures."}],["$","meta","14",{"name":"twitter:image","content":"https://gokus369.github.io/travel/brand/share.png"}],["$","meta","15",{"name":"twitter:image:alt","content":"The Wave Story logo with the tagline Every Journey Tells a Story"}],["$","meta","16",{"name":"twitter:image:width","content":"1200"}],["$","meta","17",{"name":"twitter:image:height","content":"630"}],["$","link","18",{"rel":"icon","href":"/travel/icon.png?icon.16b-cywtkm235.png","sizes":"512x512","type":"image/png"}],["$","link","19",{"rel":"apple-touch-icon","href":"/travel/apple-icon.png?apple-icon.3fyzb4ioemc2v.png","sizes":"180x180","type":"image/png"}],["$","$L14","20",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@15","v":null,"s":"$9"}},"a":"$@16","u":"$@17","b":"L23mcw2RQLS-E-WVI25eI"}
+e:null
+17:true
+9:300
+9:C
+16:0
+7:"$undefined"
+15:"$undefined"
+f:"$undefined"
