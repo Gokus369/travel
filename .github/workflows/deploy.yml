@@ -39,5 +39,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Deploy ${GITHUB_SHA}"
-          git push --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
+          git commit -q -m "Deploy ${GITHUB_SHA}"
+          remote="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          for attempt in 1 2 3 4; do
+            git push --force "$remote" gh-pages 2> ../push.log && exit 0
+            echo "::warning::Publish attempt ${attempt} failed: $(tail -n 3 ../push.log | tr '\n' ' ')"
+            sleep 20
+          done
+          echo "::error::Could not publish: $(tail -n 3 ../push.log | tr '\n' ' ')"
+          exit 1
