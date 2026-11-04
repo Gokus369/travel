@@ -7,7 +7,10 @@ export const FRAME_ASPECT = 16 / 9;
 
 const SUN = { x: 734.7 / 1280, y: 324.4 / 720, radius: 29.3 / 720 };
 
-export const frameUrl = (frame: number) => `/frames/v1/frame_${String(frame).padStart(4, "0")}.webp`;
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+export const frameUrl = (frame: number) =>
+  `${basePath}/frames/v1/frame_${String(frame).padStart(4, "0")}.webp`;
 
 type Segment =
   | { kind: "hold"; frame: number; length: number }

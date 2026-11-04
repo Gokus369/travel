@@ -10,6 +10,8 @@ import { photos } from "@/data/photos";
 import { site } from "@/data/site";
 import { monthNames } from "@/lib/months";
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return guides.map((g) => ({ slug: g.slug }));
 }

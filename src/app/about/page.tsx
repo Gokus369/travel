@@ -44,7 +44,7 @@ export default function AboutPage() {
           </p>
         </div>
         <Image
-          src="/brand/logo.png"
+          src="/brand/logo.webp"
           alt={`${site.name} logo: ${site.tagline}`}
           width={1070}
           height={815}

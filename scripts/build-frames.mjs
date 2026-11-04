@@ -5,8 +5,6 @@
 //  - corner badge healed out of every remaining frame
 //  - the beach card's garbled text repaired on frames 217-240
 //
-// If the film changes, write to a new version folder and update frameUrl in
-// src/components/story/timeline.ts, because frames are cached for a year.
 import fs from "node:fs";
 import path from "node:path";
 import sharp from "sharp";

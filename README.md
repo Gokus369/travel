@@ -26,7 +26,7 @@ Everything lives in `src/data`, so no page code needs to change.
 
 **Prices:** add `priceFrom: 24999` to a package and its cards and page show "From ₹24,999 per person". Without it they show "Quote on request".
 
-**Photos:** add the file to `public/photos`, add an entry to `src/data/photos.json` with its size and credit, then use its key in the data files. Run `npm run build` afterwards and any wrong key will fail with a type error. Photos from Wikimedia Commons must stay listed on `/credits`, which is built from that file.
+**Photos:** add the file to `public/photos`, add an entry to `src/data/photos.json` with its size and credit, run `node scripts/build-photos.mjs`, then use its key in the data files. Run `npm run build` afterwards and any wrong key will fail with a type error. Photos from Wikimedia Commons must stay listed on `/credits`, which is built from that file.
 
 ## The home page film
 
@@ -41,7 +41,7 @@ The scroll film lives in `src/components/story`.
 
 Devices set to reduce motion (including Windows with Animation effects off) get still images first, with a Play the film button that is remembered in the browser.
 
-The original film is in `frames/`. The site uses cleaned copies in `public/frames/v1`, made by `node scripts/build-frames.mjs`. Frames are cached for a year, so if the film changes, build into a new version folder (`v2`) and update `frameUrl` in `timeline.ts`.
+The original film is in `frames/`. The site uses cleaned copies in `public/frames/v1`, made by `node scripts/build-frames.mjs`.
 
 ## Enquiries
 
@@ -49,4 +49,6 @@ Forms do not store anything. They compose a message and open WhatsApp or the vis
 
 ## Deploying
 
-Works on Vercel with no setup. On any other host, set `NEXT_PUBLIC_SITE_URL` to the live address (for example `https://wavestoryventures.com`) so that the sitemap and share links are correct.
+The site is hosted on GitHub Pages at https://gokus369.github.io/travel/. Every push to `main` rebuilds and publishes it automatically, usually within a few minutes, through `.github/workflows/deploy.yml`.
+
+It is a static export, so there is no server. To move it to a custom domain, set `NEXT_PUBLIC_SITE_URL` to the new address and `NEXT_PUBLIC_BASE_PATH` to an empty value in that workflow.

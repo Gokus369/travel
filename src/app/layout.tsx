@@ -18,6 +18,13 @@ const figtree = Figtree({
   subsets: ["latin"],
 });
 
+const shareImage = {
+  url: "/brand/share.png",
+  width: 1200,
+  height: 630,
+  alt: `The ${site.name} logo with the tagline ${site.tagline}`,
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
@@ -29,6 +36,11 @@ export const metadata: Metadata = {
     siteName: site.legalName,
     type: "website",
     locale: "en_IN",
+    images: [shareImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: [shareImage],
   },
 };
 

@@ -11,6 +11,8 @@ import { photos } from "@/data/photos";
 import { site } from "@/data/site";
 import { monthRange, monthShort } from "@/lib/months";
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return packages.map((p) => ({ slug: p.slug }));
 }

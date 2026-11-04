@@ -382,7 +382,7 @@ function StoryStills({ onPlay }: { onPlay: () => void }) {
   return (
     <section aria-label="The Wave Story film" className="wrap py-10 md:py-14">
       <Image
-        src="/brand/logo.png"
+        src="/brand/logo.webp"
         alt={`${site.name} logo: ${site.tagline}`}
         width={1070}
         height={815}
