@@ -7,8 +7,7 @@ Website for Wave Story Ventures, Varkala, Kerala: all India tour packages, trave
 ```bash
 npm install
 npm run dev      # http://localhost:3000
-npm run build    # production build
-npm start        # serve the production build
+npm run build    # static site in out/
 ```
 
 If port 3000 is busy, use another one, for example `npx next dev -p 3977`.
