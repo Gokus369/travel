@@ -124,25 +124,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-paper-deep">
-        <div className="wrap grid items-center gap-10 py-16 md:py-24 lg:grid-cols-2">
-          <div className="relative aspect-[5/4] overflow-hidden rounded-md">
-            <Photo name="udaipur-palace" sizes="(min-width: 1024px) 36rem, 100vw" />
-          </div>
-          <div>
-            <p className="eyebrow">Hotel bookings</p>
-            <h2 className="mt-4 text-4xl leading-tight md:text-5xl">Just need the room?</h2>
-            <p className="mt-4 max-w-lg text-lg leading-relaxed text-ink-soft">
-              We book stays across India too, from Varkala cliff rooms to Rajasthan havelis and Dal
-              Lake houseboats. Send your dates and budget, and we will come back with options.
-            </p>
-            <Link href="/hotels" className="btn btn-primary mt-7">
-              Request a hotel
-            </Link>
-          </div>
-        </div>
-      </section>
-
       <section className="wrap py-16 text-center md:py-24">
         <h2 className="mx-auto max-w-2xl text-4xl leading-tight md:text-5xl">
           What story do you want to tell?

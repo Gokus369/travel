@@ -102,16 +102,6 @@ function coverScale(aspect: number): [number, number] {
   return aspect >= FRAME_ASPECT ? [1, FRAME_ASPECT / aspect] : [aspect / FRAME_ASPECT, 1];
 }
 
-/** Portrait screens fit the logo to their width, where a cover crop would cut it off. */
-function openingScale(aspect: number): [number, number] {
-  if (aspect >= 1) return coverScale(aspect);
-  const x = 1 / PORTRAIT_LOGO_ZOOM;
-  return [x, (x * FRAME_ASPECT) / aspect];
-}
-
-/** Matches the poster's portrait:scale-[1.95], so the canvas lands exactly on top of it. */
-const PORTRAIT_LOGO_ZOOM = 1.95;
-
 type Keys = [number, number][];
 
 function sample(keys: Keys, t: number) {
@@ -139,7 +129,7 @@ const portraitFocusKeys: Keys = [
   [19, 0.2], [31, 0.3], [40, 0.5], [73, 0.52], [79, 0.46], [103, 0.5], [107, 0.42], [123, 0.42], [129, 0.63],
 ];
 
-export function cameraAt(t: number, aspect: number, shot: Shot): Camera {
+export function cameraAt(t: number, aspect: number, shot: Shot, opening: Lens): Camera {
   const zoom = sample(pushKeys, t);
   const cover = coverScale(aspect);
   const width = cover[0] / zoom;
@@ -149,9 +139,8 @@ export function cameraAt(t: number, aspect: number, shot: Shot): Camera {
 
   if (shot.a !== 1) return { a: film, b: film, portalRadius: 0 };
 
-  const open = openingScale(aspect);
   const p = shot.portal;
-  const halfDiagonal = 0.5 * Math.hypot(open[0] * FRAME_ASPECT, open[1]);
+  const halfDiagonal = 0.5 * Math.hypot(opening.scale[0] * FRAME_ASPECT, opening.scale[1]);
   const reach = (halfDiagonal / SUN.radius) * 1.15;
   const flight = Math.exp(Math.log(reach) * Math.pow(p, 3.2));
   const toSun = smoothstep(0, 0.55, p);
@@ -159,8 +148,8 @@ export function cameraAt(t: number, aspect: number, shot: Shot): Camera {
 
   return {
     a: {
-      scale: [open[0] / flight, open[1] / flight],
-      focus: [lerp(0.5, SUN.x, toSun), lerp(0.5, SUN.y, toSun)],
+      scale: [opening.scale[0] / flight, opening.scale[1] / flight],
+      focus: [lerp(opening.focus[0], SUN.x, toSun), lerp(opening.focus[1], SUN.y, toSun)],
     },
     b: { scale: [film.scale[0] / arrival, film.scale[1] / arrival], focus: film.focus },
     portalRadius: SUN.radius * smoothstep(0.02, 0.4, p),
@@ -168,7 +157,7 @@ export function cameraAt(t: number, aspect: number, shot: Shot): Camera {
 }
 
 export const OPENING_LINE =
-  "All India tour packages, travel guides and hotel bookings, planned from Varkala, Kerala.";
+  "All India tour packages and travel guides, planned from Varkala, Kerala.";
 
 export type Chapter = {
   id: string;
@@ -180,8 +169,6 @@ export type Chapter = {
   /** Where the rail lands, with the chapter fully on screen. */
   stop: number;
   layout: "bottom-left" | "top-left" | "bottom-right" | "center-top";
-  still: number;
-  alt: string;
 };
 
 export const chapters: Chapter[] = [
@@ -194,8 +181,6 @@ export const chapters: Chapter[] = [
     fadeOut: [28.5, 31],
     stop: 24,
     layout: "bottom-left",
-    still: 44,
-    alt: "Red cliffs above a calm green sea, with gulls overhead",
   },
   {
     id: "north",
@@ -206,8 +191,6 @@ export const chapters: Chapter[] = [
     fadeOut: [48.5, 51],
     stop: 45,
     layout: "top-left",
-    still: 74,
-    alt: "The Taj Mahal and its gardens under a clear morning sky",
   },
   {
     id: "forts",
@@ -218,8 +201,6 @@ export const chapters: Chapter[] = [
     fadeOut: [70.5, 73],
     stop: 65,
     layout: "bottom-left",
-    still: 105,
-    alt: "A golden hill fort seen from the air in evening light",
   },
   {
     id: "india",
@@ -230,8 +211,6 @@ export const chapters: Chapter[] = [
     fadeOut: [100, 103],
     stop: 92,
     layout: "bottom-right",
-    still: 146,
-    alt: "A relief map of India with travel postcards rising from it",
   },
   {
     id: "backwaters",
@@ -242,8 +221,6 @@ export const chapters: Chapter[] = [
     fadeOut: [120.5, 123],
     stop: 114,
     layout: "bottom-left",
-    still: 198,
-    alt: "Houseboats on the palm-lined Kerala backwaters at dusk",
   },
   {
     id: "shore",
@@ -254,7 +231,5 @@ export const chapters: Chapter[] = [
     fadeOut: [152, 155],
     stop: 146,
     layout: "center-top",
-    still: 240,
-    alt: "A lantern and compass on the sand as the tide comes in at dusk",
   },
 ];

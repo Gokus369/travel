@@ -10,7 +10,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/packages",
     "/guides",
-    "/hotels",
     "/about",
     "/contact",
     ...packages.map((p) => `/packages/${p.slug}`),

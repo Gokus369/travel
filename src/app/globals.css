@@ -180,9 +180,31 @@ html[data-story="away"] header {
   --opening: 1;
   --progress: 0;
   --interface: 1;
+  --story-copy: 12.5rem;
+  --story-logo-room: max(8rem, calc(100svh - 4.5rem - var(--story-copy)));
+  /* One pixel of the 1280x720 logo frame, sized so the 519x402 logo fits the room above the text. */
+  --story-unit: min(calc(88vw / 519), calc(var(--story-logo-room) / 430), 1.3px);
+
+  @media (width >= 48rem) {
+    --story-copy: 9rem;
+  }
 }
 
+.story-poster {
+  position: absolute;
+  top: calc(4.5rem + var(--story-logo-room) / 2 - 362 * var(--story-unit));
+  left: calc(50% - 637.5 * var(--story-unit));
+  width: calc(1280 * var(--story-unit));
+  max-width: none;
+  height: calc(720 * var(--story-unit));
+}
+
+/* Starts just under the logo, so the two cannot overlap at any screen size. */
 .story-opening {
+  position: absolute;
+  top: calc(4.5rem + var(--story-logo-room) / 2 + 201 * var(--story-unit) + 1.25rem);
+  right: 0;
+  left: 0;
   opacity: var(--opening);
   transform: translateY(calc((1 - var(--opening)) * -2rem));
 }

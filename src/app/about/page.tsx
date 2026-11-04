@@ -10,7 +10,7 @@ import { defaultWhatsappUrl } from "@/lib/contact";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Wave Story Ventures is a travel company in Varkala, Kerala, planning tour packages and hotel stays across India.",
+    "Wave Story Ventures is a travel company in Varkala, Kerala, planning tour packages across India.",
   alternates: { canonical: "/about" },
 };
 
@@ -29,8 +29,8 @@ export default function AboutPage() {
         <div className="prose-story max-w-xl">
           <p>
             Wave Story Ventures is based in Varkala, on the red cliffs above the Arabian Sea. From
-            here, we plan journeys across the whole of India: tour packages, travel guides and hotel
-            bookings, all in one place.
+            here, we plan journeys across the whole of India: tour packages and travel guides, all in
+            one place.
           </p>
           <p>
             Our name comes from a simple idea. Waves arrive one after another, and each one is a

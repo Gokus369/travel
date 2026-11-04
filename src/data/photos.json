@@ -131,18 +131,6 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
     "source": "https://commons.wikimedia.org/wiki/File:City_Palace,_Udaipur,_20191207_1542_7282.jpg"
   },
-  "pichola-sunset": {
-    "src": "/photos/pichola-sunset.jpg",
-    "width": 1920,
-    "height": 1200,
-    "alt": "Sunset over Lake Pichola in Udaipur",
-    "blur": "data:image/jpeg;base64,/9j/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAAKABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAgAF/8QAIRAAAQQCAAcAAAAAAAAAAAAAAQACAyEEERITIjEyQWH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABcRAQEBAQAAAAAAAAAAAAAAAAEAEUH/2gAMAwEAAhEDEQA/AAzKh5IdLb+3l60i7PGugN19JWHITwiyqMmrKgZ2N//Z",
-    "title": "Lake Pichola at sunset, Udaipur, Rajasthan, India",
-    "author": "UnpetitproleX",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "source": "https://commons.wikimedia.org/wiki/File:Lake_Pichola_at_sunset,_Udaipur,_Rajasthan,_India.jpg"
-  },
   "jaisalmer-fort": {
     "src": "/photos/jaisalmer-fort.jpg",
     "width": 1920,
@@ -166,18 +154,6 @@
     "license": "CC BY-SA 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
     "source": "https://commons.wikimedia.org/wiki/File:Sunsetcamels.jpg"
-  },
-  "thar-dunes": {
-    "src": "/photos/thar-dunes.jpg",
-    "width": 1920,
-    "height": 1272,
-    "alt": "Rippled sand dunes in the Thar Desert near Jaisalmer",
-    "blur": "data:image/jpeg;base64,/9j/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAALABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAMF/8QAIRAAAgIBAgcAAAAAAAAAAAAAAQQCAwAiMQUhMmKBkaH/xAAVAQEBAAAAAAAAAAAAAAAAAAADBP/EABURAQEAAAAAAAAAAAAAAAAAAAEA/9oADAMBAAIRAxEAPwAVTjlcwDUSRz6N/mOi09aNS0zHtrGYo4i5I6mbD5y8H2htfZ7yVGcb/9k=",
-    "title": "TharDesert",
-    "author": "Karan Dhawan India",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "source": "https://commons.wikimedia.org/wiki/File:TharDesert.jpg"
   },
   "betaab-valley": {
     "src": "/photos/betaab-valley.jpg",

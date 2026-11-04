@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment, useEffect, useRef, useSyncExternalStore, type CSSProperties } from "react";
+import { Fragment, useEffect, useRef, type CSSProperties } from "react";
 import { WhatsAppIcon } from "@/components/Ornaments";
 import { FrameStore } from "@/components/story/frameStore";
 import { createRenderer } from "@/components/story/renderer";
@@ -16,63 +16,10 @@ import {
   shotAt,
   smoothstep,
   type Chapter,
+  type Lens,
 } from "@/components/story/timeline";
 import { site } from "@/data/site";
 import { defaultWhatsappUrl } from "@/lib/contact";
-
-const MOTION_QUERY = "(prefers-reduced-motion: reduce)";
-
-function subscribeToMotion(onChange: () => void) {
-  const query = window.matchMedia(MOTION_QUERY);
-  query.addEventListener("change", onChange);
-  return () => query.removeEventListener("change", onChange);
-}
-
-const FILM_CHOICE = "wave-story-film";
-const choiceListeners = new Set<() => void>();
-let chosenThisVisit = false;
-
-function subscribeToChoice(onChange: () => void) {
-  choiceListeners.add(onChange);
-  return () => {
-    choiceListeners.delete(onChange);
-  };
-}
-
-function readChoice() {
-  if (chosenThisVisit) return true;
-  try {
-    return localStorage.getItem(FILM_CHOICE) === "yes";
-  } catch {
-    return false;
-  }
-}
-
-function chooseFilm() {
-  chosenThisVisit = true;
-  try {
-    localStorage.setItem(FILM_CHOICE, "yes");
-  } catch {
-    // Private windows can block storage, so the choice then lasts for this visit only.
-  }
-  window.scrollTo({ top: 0, behavior: "instant" });
-  choiceListeners.forEach((listener) => listener());
-}
-
-/**
- * Devices set to reduce motion get still images first, because many people use that setting
- * for a reason. They can still choose the film, since many others have it on by chance.
- */
-export function ScrollStory() {
-  const reducedMotion = useSyncExternalStore(
-    subscribeToMotion,
-    () => window.matchMedia(MOTION_QUERY).matches,
-    () => false,
-  );
-  const filmChosen = useSyncExternalStore(subscribeToChoice, readChoice, () => false);
-
-  return reducedMotion && !filmChosen ? <StoryStills onPlay={chooseFilm} /> : <StoryFilm />;
-}
 
 type Connection = { saveData?: boolean; effectiveType?: string };
 
@@ -85,16 +32,18 @@ function chooseStride(narrow: boolean) {
   return narrow ? 2 : 1;
 }
 
-function StoryFilm() {
+export function ScrollStory() {
   const rootRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const posterRef = useRef<HTMLImageElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const root = rootRef.current;
     const stage = stageRef.current;
+    const poster = posterRef.current;
     const canvas = canvasRef.current;
-    if (!root || !stage || !canvas) return;
+    if (!root || !stage || !poster || !canvas) return;
 
     const renderer = createRenderer(canvas);
     if (!renderer) return;
@@ -106,6 +55,7 @@ function StoryFilm() {
     let visible = true;
     let last = performance.now();
     let aspect = 1;
+    let opening: Lens = { scale: [1, 1], focus: [0.5, 0.5] };
     let t = 0;
     let travel = 1;
     let lastScroll = window.scrollY;
@@ -166,7 +116,7 @@ function StoryFilm() {
         a: store.get(shot.a),
         b: store.get(shot.b),
         mix: shot.mix,
-        camera: cameraAt(t, aspect, shot),
+        camera: cameraAt(t, aspect, shot, opening),
         tide: shot.tide,
         toPaper: shot.toPaper,
         portal: shot.portal,
@@ -196,9 +146,17 @@ function StoryFilm() {
 
     function resize() {
       const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
-      const { width, height } = stage!.getBoundingClientRect();
+      const { width, height, left, top } = stage!.getBoundingClientRect();
       aspect = width / height;
       travel = root!.offsetHeight - height;
+
+      // The CSS lays out the logo and its text, and the film starts exactly where the logo sits.
+      const logo = poster!.getBoundingClientRect();
+      opening = {
+        scale: [width / logo.width, height / logo.height],
+        focus: [(width / 2 + left - logo.left) / logo.width, (height / 2 + top - logo.top) / logo.height],
+      };
+
       renderer!.resize(Math.round(width * ratio), Math.round(height * ratio));
       last = performance.now();
       wake();
@@ -271,17 +229,18 @@ function StoryFilm() {
     >
       <div ref={stageRef} className="sticky top-0 h-svh overflow-hidden">
         <Image
+          ref={posterRef}
           src={frameUrl(1)}
           alt={`${site.name} logo: ${site.tagline}`}
           width={1280}
           height={720}
           preload
           unoptimized
-          className="absolute inset-0 size-full object-cover portrait:scale-[1.95] portrait:object-contain"
+          className="story-poster"
         />
         <canvas ref={canvasRef} aria-hidden className="absolute inset-0 size-full opacity-0" />
 
-        <div className="story-opening absolute inset-x-0 bottom-24 px-6 text-center text-ink md:bottom-5">
+        <div className="story-opening px-6 text-center text-ink">
           <h1 className="mx-auto max-w-3xl text-[1.0625rem] leading-relaxed tracking-normal text-ink-soft md:text-lg">
             {OPENING_LINE}
           </h1>
@@ -333,7 +292,6 @@ function StoryFilm() {
         <nav aria-label="Chapters of the film" className="story-rail">
           <JourneyRail onJump={jumpTo} />
         </nav>
-
       </div>
     </section>
   );
@@ -374,53 +332,5 @@ function JourneyRail({ onJump }: { onJump: (chapter: Chapter) => void }) {
         })}
       </ol>
     </div>
-  );
-}
-
-/** The same story without the motion, for visitors who have asked their device for less. */
-function StoryStills({ onPlay }: { onPlay: () => void }) {
-  return (
-    <section aria-label="The Wave Story film" className="wrap py-10 md:py-14">
-      <Image
-        src="/brand/logo.webp"
-        alt={`${site.name} logo: ${site.tagline}`}
-        width={1070}
-        height={815}
-        sizes="24rem"
-        className="mx-auto h-auto w-full max-w-sm"
-      />
-      <h1 className="mx-auto mt-6 max-w-xl text-center text-lg leading-relaxed tracking-normal text-ink-soft">
-        {OPENING_LINE}
-      </h1>
-      <div className="mt-6 text-center">
-        <button type="button" onClick={onPlay} className="btn btn-primary">
-          Play the film
-        </button>
-        <p className="mx-auto mt-3 max-w-md text-[0.9375rem] leading-relaxed text-ink-soft">
-          Your device is set to reduce motion, so we are showing stills. The film only moves as you
-          scroll.
-        </p>
-      </div>
-      <ol className="mt-12 grid gap-x-8 gap-y-10 md:grid-cols-2">
-        {chapters.map((chapter) => (
-          <li key={chapter.id}>
-            <div className="relative aspect-video overflow-hidden rounded-md bg-paper-deep">
-              <Image src={frameUrl(chapter.still)} alt={chapter.alt} fill unoptimized className="object-cover" />
-            </div>
-            <p className="mt-3 text-[0.8125rem] font-medium text-clay-deep">{chapter.place}</p>
-            <h2 className="mt-1 text-3xl leading-tight">{chapter.title}</h2>
-          </li>
-        ))}
-      </ol>
-      <div className="mt-10 flex flex-wrap justify-center gap-3">
-        <Link href="/packages" className="btn btn-primary">
-          See tour packages
-        </Link>
-        <a href={defaultWhatsappUrl} target="_blank" rel="noreferrer" className="btn btn-ghost">
-          <WhatsAppIcon className="size-[18px]" />
-          Plan on WhatsApp
-        </a>
-      </div>
-    </section>
   );
 }

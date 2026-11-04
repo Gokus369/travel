@@ -5,7 +5,7 @@ export const site = {
   legalName: "Wave Story Ventures",
   tagline: "Every Journey Tells a Story",
   description:
-    "All India tour packages, travel guides and hotel bookings, planned from Varkala, Kerala by Wave Story Ventures.",
+    "All India tour packages and travel guides, planned from Varkala, Kerala by Wave Story Ventures.",
   url:
     process.env.NEXT_PUBLIC_SITE_URL ??
     (vercelUrl ? `https://${vercelUrl}` : "http://localhost:3000"),
@@ -26,7 +26,6 @@ export const site = {
 export const nav = [
   { href: "/packages", label: "Tour Packages" },
   { href: "/guides", label: "Travel Guides" },
-  { href: "/hotels", label: "Hotel Bookings" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];

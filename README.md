@@ -1,6 +1,6 @@
 # Wave Story
 
-Website for Wave Story Ventures, Varkala, Kerala: all India tour packages, travel guides and hotel bookings. Built with Next.js 16, React 19 and Tailwind CSS 4.
+Website for Wave Story Ventures, Varkala, Kerala: all India tour packages and travel guides. Built with Next.js 16, React 19 and Tailwind CSS 4.
 
 ## Running it
 
@@ -21,7 +21,6 @@ Everything lives in `src/data`, so no page code needs to change.
 | Phone, WhatsApp, email, address | `src/data/site.ts` |
 | Tour packages and itineraries | `src/data/packages.ts` |
 | Travel guides | `src/data/guides.ts` |
-| Hotel stay types and destinations | `src/data/stays.ts` |
 
 **Prices:** add `priceFrom: 24999` to a package and its cards and page show "From ₹24,999 per person". Without it they show "Quote on request".
 
@@ -37,8 +36,6 @@ The scroll film lives in `src/components/story`.
 | Pacing, and how much scroll each scene gets | `segments` in `timeline.ts` |
 | Total scroll length | `h-[850svh]` in `ScrollStory.tsx` |
 | The portal, tide and water effects | the shader in `renderer.ts` |
-
-Devices set to reduce motion (including Windows with Animation effects off) get still images first, with a Play the film button that is remembered in the browser.
 
 The original film is in `frames/`. The site uses cleaned copies in `public/frames/v1`, made by `node scripts/build-frames.mjs`.
 
