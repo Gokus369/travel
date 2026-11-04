@@ -1,0 +1,434 @@
+@import "tailwindcss";
+
+@theme {
+  /* Sampled from the Wave Story logo */
+  --color-paper: #f7f0e0;
+  --color-paper-deep: #efe5ce;
+  --color-paper-light: #fcf8ee;
+  --color-ink: #0a3038;
+  --color-ink-soft: #3b5a60;
+  --color-ink-mist: #b9cdc9;
+  --color-sun: #f6b365;
+  --color-clay: #a9592d;
+  --color-clay-deep: #8a4521;
+  --color-sea: #44858d;
+  --color-palm: #1a3530;
+
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-variation-settings: "SOFT" 60;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+::selection {
+  background: var(--color-sun);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-clay);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@utility wrap {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/* The logo sets its tagline between two short rules; section labels do the same. */
+@utility eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  letter-spacing: 0.16em;
+  color: var(--color-clay-deep);
+
+  &::before {
+    content: "";
+    width: 1.75rem;
+    height: 1px;
+    background: currentColor;
+  }
+}
+
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0.625rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    transform 0.2s;
+  cursor: pointer;
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+@utility btn-primary {
+  background: var(--color-ink);
+  color: var(--color-paper);
+
+  &:hover {
+    background: var(--color-clay-deep);
+  }
+}
+
+@utility btn-sun {
+  background: var(--color-sun);
+  color: var(--color-ink);
+
+  &:hover {
+    background: var(--color-paper);
+  }
+}
+
+@utility btn-ghost {
+  border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+
+  &:hover {
+    border-color: currentColor;
+  }
+}
+
+@utility field {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid color-mix(in srgb, var(--color-ink) 28%, transparent);
+  border-radius: 0.5rem;
+  background: var(--color-paper-light);
+  color: var(--color-ink);
+  font-size: 1rem;
+
+  &::placeholder {
+    color: var(--color-ink-soft);
+    opacity: 0.75;
+  }
+
+  &:focus {
+    outline: 2px solid var(--color-clay);
+    outline-offset: 0;
+    border-color: transparent;
+  }
+}
+
+@utility prose-story {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--color-ink);
+
+  & p + p {
+    margin-top: 1.1em;
+  }
+}
+
+/* A hand-drawn wave running down the itinerary, standing in for a plain timeline rule. */
+@utility wave-rail {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='56' viewBox='0 0 14 56'%3E%3Cpath d='M7 0c6 7 6 21 0 28S1 49 7 56' fill='none' stroke='%2344858d' stroke-width='1.6'/%3E%3C/svg%3E");
+  background-repeat: repeat-y;
+  background-position: 15px 0;
+}
+
+/* The scroll film. ScrollStory drives these custom properties as the page moves. */
+html[data-story="away"] header {
+  transform: translateY(-100%);
+}
+
+.story {
+  --opening: 1;
+  --progress: 0;
+  --interface: 1;
+}
+
+.story-opening {
+  opacity: var(--opening);
+  transform: translateY(calc((1 - var(--opening)) * -2rem));
+}
+
+.story-cue {
+  width: 1px;
+  height: 2.25rem;
+  background: currentColor;
+  transform-origin: top;
+  animation: story-cue 2.4s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+}
+
+@keyframes story-cue {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  51% {
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+.story-chapter {
+  --in: 0;
+  --out: 0;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  opacity: calc(1 - var(--out));
+  pointer-events: none;
+}
+
+.story-scrim {
+  position: absolute;
+  inset: 0;
+  opacity: var(--in);
+  background: linear-gradient(to top, rgb(6 28 33 / 0.78), rgb(6 28 33 / 0.3) 36%, transparent 64%);
+}
+
+.story-top-left .story-scrim,
+.story-center-top .story-scrim {
+  background: linear-gradient(to bottom, rgb(6 28 33 / 0.66), rgb(6 28 33 / 0.26) 42%, transparent 66%);
+}
+
+.story-copy {
+  position: relative;
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  color: var(--color-paper);
+  transform: translateY(calc(var(--out) * -2.5rem));
+
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+.story-bottom-left,
+.story-bottom-right {
+  align-items: flex-end;
+  padding-bottom: clamp(6.5rem, 15svh, 9.5rem);
+}
+
+.story-bottom-right {
+  text-align: right;
+}
+
+.story-top-left,
+.story-center-top {
+  align-items: flex-start;
+  padding-top: clamp(4.5rem, 11svh, 7rem);
+}
+
+.story-center-top {
+  text-align: center;
+}
+
+.story-place {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  letter-spacing: 0.16em;
+  color: var(--color-sun);
+  opacity: var(--in);
+}
+
+.story-title {
+  max-width: 15ch;
+  margin-top: 0.5rem;
+  font-size: clamp(2.75rem, 7.2vw, 6.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+
+.story-bottom-right .story-title {
+  margin-left: auto;
+}
+
+.story-center-top .story-title {
+  max-width: 18ch;
+  margin-inline: auto;
+}
+
+/* Each word rises out of its own mask, one after another. */
+.story-word {
+  display: inline-block;
+  overflow: clip;
+  padding-block: 0.14em;
+  margin-block: -0.14em;
+  vertical-align: top;
+
+  & > span {
+    display: inline-block;
+    transform: translateY(calc((1 - clamp(0, var(--in) * 2.1 - var(--i) * 0.16, 1)) * 118%));
+  }
+}
+
+.story-actions {
+  margin-top: 1rem;
+  opacity: clamp(0, var(--in) * 3 - 2, 1);
+}
+
+[data-live="true"] .story-actions {
+  pointer-events: auto;
+}
+
+.story-rail {
+  color: var(--color-paper);
+  opacity: min(1 - var(--opening), var(--interface));
+  transition: color 0.5s;
+}
+
+.story[data-tone="paper"] .story-rail {
+  color: var(--color-ink);
+}
+
+.story-rail {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.25rem;
+  right: 6rem;
+
+  @media (width >= 48rem) {
+    left: 50%;
+    right: auto;
+    width: min(42rem, 54vw);
+    transform: translateX(-50%);
+  }
+}
+
+.story-rail-track {
+  position: relative;
+  height: 22px;
+
+  & svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    fill: none;
+  }
+
+  & li {
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+
+  & button {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    cursor: pointer;
+  }
+}
+
+.story-rail-line {
+  stroke: currentColor;
+  stroke-opacity: 0.4;
+  stroke-width: 1.25;
+}
+
+.story-rail-done {
+  stroke: var(--color-sun);
+  stroke-width: 2;
+  clip-path: inset(-12px calc((1 - var(--progress)) * 100%) -12px 0);
+}
+
+.story-rail-dot {
+  width: 0.5625rem;
+  height: 0.5625rem;
+  border-radius: 999px;
+  background: currentColor;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+}
+
+.story-rail-label {
+  position: absolute;
+  bottom: calc(100% - 0.5rem);
+  left: 50%;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: opacity 0.3s;
+}
+
+.story-rail-track li:last-child .story-rail-label {
+  left: auto;
+  right: 50%;
+  transform: translateX(0.4rem);
+}
+
+[data-current] .story-rail-dot {
+  background: var(--color-sun);
+  transform: scale(1.5);
+}
+
+[data-current] .story-rail-label,
+.story-rail-track button:hover .story-rail-label,
+.story-rail-track button:focus-visible .story-rail-label {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
